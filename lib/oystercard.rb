@@ -5,6 +5,7 @@ class Oystercard
 
   MAX_CAP = 90
   MIN = 1
+  MIN_CHARGE = 1
 
 
   def initialize
@@ -27,7 +28,7 @@ class Oystercard
   end
 
   def touch_out
-    deduct(MIN)
+    deduct(MIN_CHARGE)
     @in_journey = false
   end
 
@@ -36,4 +37,5 @@ class Oystercard
   def deduct(fare)
     @balance -= fare
   end
+
 end

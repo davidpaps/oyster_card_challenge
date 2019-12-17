@@ -47,7 +47,7 @@ describe Oystercard do
     it "deducts fare" do
       subject.top_up(20)
       subject.touch_in
-      expect{subject.touch_out}.to change{ subject.balance}.by(-Oystercard::MIN)
+      expect{subject.touch_out}.to change{ subject.balance}.by(-Oystercard::MIN_CHARGE)
     end
   end
 
