@@ -78,10 +78,21 @@ describe Oystercard do
       expect(subject.entrance_station).to eq nil
     end
 
-    it "touching in and out creates a journey" do
+    let(:entry_station) { double :station}
+    let(:exit_station) { double :station}
+    it "stores the exit station" do
       subject.top_up(Oystercard::MIN)
-      subject.touch_in(station)
-      expect{subject.touch_out(station)}.to change{ subject.journey_history.length}.by(1)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.exit_station).to eq exit_station
+    end
+
+    let(:journey_history){ {entry_station: entry_station, exit_station: exit_station} }
+    it "stores the journey history" do
+      subject.top_up(Oystercard::MIN)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journey_history).to include journey_history
     end
   
   end
