@@ -8,6 +8,11 @@ describe Oystercard do
     it "has a balance of 0 by default" do
       expect(subject.balance).to eq(0)
     end
+
+    it "Has an empty journey history on creation" do
+      expect(subject.journey_history).to be_empty
+    end
+
   end
 
   describe "#topup" do
@@ -51,25 +56,34 @@ describe Oystercard do
   end
 
   describe "#touch_out" do
+    it { is_expected .to respond_to(:touch_out).with(1).argument }
+
     it "registers end of journey" do
       subject.top_up(Oystercard::MIN)
       subject.touch_in(station)
-      subject.touch_out
+      subject.touch_out(station)
       expect(subject).to_not be_in_journey
     end
 
     it "deducts fare" do
-      subject.top_up(20)
+      subject.top_up(Oystercard::MIN)
       subject.touch_in(station)
-      expect{subject.touch_out}.to change{ subject.balance}.by(-Oystercard::MIN_CHARGE)
+      expect{subject.touch_out(station)}.to change{ subject.balance}.by(-Oystercard::MIN_CHARGE)
     end
 
     it "forget entry station on touch out" do
-      subject.top_up(20)
+      subject.top_up(Oystercard::MIN)
       subject.touch_in(station)
-      subject.touch_out
+      subject.touch_out(station)
       expect(subject.entrance_station).to eq nil
     end
+
+    it "touching in and out creates a journey" do
+      subject.top_up(Oystercard::MIN)
+      subject.touch_in(station)
+      expect{subject.touch_out(station)}.to change{ subject.journey_history.length}.by(1)
+    end
+  
   end
 
   describe "#in_journey?" do
@@ -77,4 +91,5 @@ describe Oystercard do
       expect(subject).not_to be_in_journey
     end
   end
+
 end
