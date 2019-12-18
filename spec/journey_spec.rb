@@ -20,6 +20,22 @@ describe Journey do
     end
   end
 
+    describe '#complete?' do
+
+      before do
+        subject.start_journey(station)
+      end
+
+      it 'will return true if journey complete' do
+        subject.finish_journey(station)
+        expect(subject.complete?).to eq true
+      end
+
+      it "will return false if journey not completed" do
+        expect(subject.complete?).to eq false
+      end
+    end
+
       # it "registers start of journey" do
       #   expect(subject).to be_in_journey
       # end

@@ -13,5 +13,5 @@ describe Station do
   it "stores the zone" do
     expect(subject.zone).to eq zone
   end
-  
+
 end

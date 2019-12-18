@@ -14,10 +14,8 @@ class Oystercard
 
   def initialize
     @balance = 0
-    # @entrance_station = nil
     @journey_history = []
-    @exit_station = nil
-    # @current_journey = nil
+   
   end
 
   def top_up(money)
@@ -29,22 +27,13 @@ class Oystercard
     fail "insufficent funds" if @balance < MIN
     @current_journey = Journey.new
     @current_journey.start_journey(station)
-    # @entrance_station = station
+   
   end
-
-  #### MOVE TO JOURNEY!!!
-  # def in_journey?
-  #   @entrance_station != nil
-  # end
 
   def touch_out(station)
     deduct(MIN_CHARGE)
-    # @exit_station = station
     @current_journey.finish_journey(station)
-
     @journey_history << @current_journey.journey
-    # p @journey_history
-    # @entrance_station = nil
   end
 
 

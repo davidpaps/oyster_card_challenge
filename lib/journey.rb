@@ -2,8 +2,6 @@ class Journey
   attr_reader :journey
 
   def initialize
-    # @entrance_station = nil
-    # @exit_station = nil
     @journey = {entry_station: nil, exit_station: nil}
   end
 
@@ -13,6 +11,10 @@ class Journey
 
   def finish_journey(station)
     @journey[:exit_station] = station
+  end
+
+  def complete?
+    @journey[:exit_station] != nil
   end
   
 end

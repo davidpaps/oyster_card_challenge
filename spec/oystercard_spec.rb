@@ -49,19 +49,6 @@ describe Oystercard do
 
     end
 
-    # context "journey with money" do
-      
-    #   before do
-    #     subject.top_up(Oystercard::MIN)
-    #     subject.touch_in(station)
-    #   end
-
-    #   # it 'remembers entry station' do
-    #   #   expect(subject.entrance_station).to eq station
-    #   # end
-
-    # end
-
   end
 
   describe "#touch_out" do
