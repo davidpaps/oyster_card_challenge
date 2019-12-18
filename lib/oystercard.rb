@@ -1,3 +1,5 @@
+require_relative "station"
+
 class Oystercard
 
   attr_accessor :balance, :entrance_station, :exit_station
@@ -13,7 +15,7 @@ class Oystercard
     @balance = 0
     @entrance_station = nil
     @journey_history = []
-    @exit_station
+    @exit_station = nil
   end
 
   def top_up(money)

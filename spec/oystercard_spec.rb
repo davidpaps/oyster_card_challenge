@@ -5,7 +5,7 @@ describe Oystercard do
   let(:station) { double :station }
 
   describe "#initialize" do
-
+  
     it "has a balance of 0 by default" do
       expect(subject.balance).to eq(0)
     end
@@ -97,7 +97,7 @@ describe Oystercard do
         expect(subject.exit_station).to eq exit_station
       end
 
-      let(:journey_history){ {entry_station: entry_station, exit_station: exit_station} }
+      let(:journey_history) { {entry_station: entry_station, exit_station: exit_station} }
     
       it "stores the journey history" do
         expect(subject.journey_history).to include journey_history
