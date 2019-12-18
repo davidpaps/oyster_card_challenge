@@ -49,22 +49,18 @@ describe Oystercard do
 
     end
 
-    context "journey with money" do
+    # context "journey with money" do
       
-      before do
-        subject.top_up(Oystercard::MIN)
-        subject.touch_in(station)
-      end
+    #   before do
+    #     subject.top_up(Oystercard::MIN)
+    #     subject.touch_in(station)
+    #   end
 
-      it "registers start of journey" do
-        expect(subject).to be_in_journey
-      end
+    #   # it 'remembers entry station' do
+    #   #   expect(subject.entrance_station).to eq station
+    #   # end
 
-      it 'remembers entry station' do
-        expect(subject.entrance_station).to eq station
-      end
-
-    end
+    # end
 
   end
 
@@ -81,9 +77,7 @@ describe Oystercard do
       subject.touch_out(exit_station)
     end
 
-      it "registers end of journey" do
-        expect(subject).to_not be_in_journey
-      end
+
 
       it "deducts fare" do
         expect{subject.touch_out(station)}.to change{ subject.balance}.by(-Oystercard::MIN_CHARGE)
@@ -93,24 +87,17 @@ describe Oystercard do
         expect(subject.entrance_station).to eq nil
       end
     
-      it "stores the exit station" do
-        expect(subject.exit_station).to eq exit_station
-      end
+
 
       let(:journey_history) { {entry_station: entry_station, exit_station: exit_station} }
     
       it "stores the journey history" do
+        skip
         expect(subject.journey_history).to include journey_history
       end
 
   end
 
-  describe "#in_journey?" do
 
-    it "initially not in journey" do
-      expect(subject).not_to be_in_journey
-    end
-
-  end
 
 end
