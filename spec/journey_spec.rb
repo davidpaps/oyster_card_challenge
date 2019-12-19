@@ -3,6 +3,10 @@ require 'journey'
 describe Journey do
 
   let(:station) { double :station }
+  let(:entry_station) { double :station}
+  let(:exit_station) { double :station}
+  let(:journey) { {entry_station: entry_station, exit_station: exit_station} }
+
 
   it { is_expected .to respond_to(:start_journey).with(1).argument }
 
@@ -12,11 +16,24 @@ describe Journey do
     it 'will store entrance_station details' do
       expect(subject.start_journey(station)).to eq station
     end
+
+    it 'will reset_card if previous journey was not completed' do
+      subject.start_journey(station)
+      subject.start_journey(station)
+      expect(subject.journey[:exit_station]).to eq nil
+    end
+
   end
 
     describe '#finish_journey' do
     it 'will store exit_station details' do
       expect(subject.finish_journey(station)).to eq station
+    end
+
+    it 'will reset_card if previous journey was completed' do
+      subject.finish_journey(station)
+      subject.finish_journey(station)
+      expect(subject.journey[:entry_station]).to eq nil
     end
   end
 
@@ -36,21 +53,22 @@ describe Journey do
       end
     end
 
-      # it "registers start of journey" do
-      #   expect(subject).to be_in_journey
-      # end
+    describe '#reset_card' do
+      it 'will set journey entry station value to nil' do
+        subject.start_journey(station)
+        subject.reset_card
+        expect(subject.journey[:entry_station]).to eq nil
+      end
 
-      # it "registers end of journey" do
-      #   expect(subject).to_not be_in_journey
-      # end
+      it 'will set journey exit station value to nil' do
+        subject.finish_journey(station)
+        subject.reset_card
+        expect(subject.journey[:exit_station]).to eq nil
+      end
 
-    #   describe "#in_journey?" do
+    end
 
-    #   it "initially not in journey" do
-    #     expect(subject).not_to be_in_journey
-    #   end
-  
-    # end
+
 
 
 

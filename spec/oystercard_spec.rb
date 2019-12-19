@@ -79,7 +79,6 @@ describe Oystercard do
       let(:journey_history) { {entry_station: entry_station, exit_station: exit_station} }
     
       it "stores the journey history" do
-        skip
         expect(subject.journey_history).to include journey_history
       end
 
