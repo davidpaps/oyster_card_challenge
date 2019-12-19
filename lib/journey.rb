@@ -1,7 +1,11 @@
 require_relative "oystercard"
 
 class Journey
+
   attr_reader :journey
+
+  MIN_CHARGE = 1
+  PENALTY_CHARGE = 6
 
   def initialize
     @journey = {entry_station: nil, exit_station: nil}
@@ -23,6 +27,10 @@ class Journey
 
   def reset_card
     @journey = {entry_station: nil, exit_station: nil}
+  end
+
+  def fare
+    complete? ? MIN_CHARGE : PENALTY_CHARGE
   end
   
 end

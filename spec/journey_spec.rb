@@ -7,7 +7,6 @@ describe Journey do
   let(:exit_station) { double :station}
   let(:journey) { {entry_station: entry_station, exit_station: exit_station} }
 
-
   it { is_expected .to respond_to(:start_journey).with(1).argument }
 
   it { is_expected .to respond_to(:finish_journey).with(1).argument }
@@ -22,7 +21,6 @@ describe Journey do
       subject.start_journey(station)
       expect(subject.journey[:exit_station]).to eq nil
     end
-
   end
 
     describe '#finish_journey' do
@@ -38,20 +36,18 @@ describe Journey do
   end
 
     describe '#complete?' do
+      
+      before {subject.start_journey(station)}
+      
+        it 'will return true if journey complete' do
+          subject.finish_journey(station)
+          expect(subject.complete?).to eq true
+        end
 
-      before do
-        subject.start_journey(station)
+        it "will return false if journey not completed" do
+          expect(subject.complete?).to eq false
+        end
       end
-
-      it 'will return true if journey complete' do
-        subject.finish_journey(station)
-        expect(subject.complete?).to eq true
-      end
-
-      it "will return false if journey not completed" do
-        expect(subject.complete?).to eq false
-      end
-    end
 
     describe '#reset_card' do
       it 'will set journey entry station value to nil' do
@@ -65,11 +61,19 @@ describe Journey do
         subject.reset_card
         expect(subject.journey[:exit_station]).to eq nil
       end
-
     end
 
+    describe "#fare" do
 
+    before {subject.start_journey(station)}
 
+      it "complete journey - min fare" do
+        subject.finish_journey(station)
+        expect(subject.fare).to eq Journey::MIN_CHARGE
+      end
 
-
+      it "incomplete journey - penalty fare" do
+        expect(subject.fare).to eq Journey::PENALTY_CHARGE
+      end
+    end
 end
