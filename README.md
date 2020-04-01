@@ -1,3 +1,3 @@
-# oyster_card_challenge
+# Oystercard
 
-Day 1 with Nicolas Rafferty. Rspec issues led to delays starting on Monday 16th December.
+Please visit [_this repo_](https://github.com/davidpaps/oystercard_2) for the updated version of this project.

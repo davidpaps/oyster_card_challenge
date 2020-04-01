@@ -12,7 +12,7 @@ class Journey
   end
 
   def start_journey(station)
-    reset_card if !complete?
+    reset_card unless complete?
     @journey[:entry_station] = station
   end
 
